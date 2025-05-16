@@ -69,6 +69,7 @@ int main(void) {
 
         cJSON* rpm = cJSON_GetObjectItemCaseSensitive(json, "rpm");
         cJSON* SpeedKMH = cJSON_GetObjectItemCaseSensitive(json, "SpeedKMH");
+	cJSON* turbo = cJSON_GetObjectItemCaseSensitive(json, "turbo");
         cJSON* gear = cJSON_GetObjectItemCaseSensitive(json, "gear");
         cJSON* throttle = cJSON_GetObjectItemCaseSensitive(json, "throttle");
         cJSON* brake = cJSON_GetObjectItemCaseSensitive(json, "brake");
