@@ -1,10 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <winsock2.h>
-#include "cJSON.h"
+#include <unistd.h>             // voor close()
+#include <arpa/inet.h>          // voor inet_ntoa en htons
+#include <netinet/in.h>         // voor sockaddr_in
+#include <sys/socket.h>         // voor socket-functies
 
-#pragma comment(lib, "ws2_32.lib")
+#include "cJSON.h"
 
 #define PORT 9996
 #define BUFLEN 2048
@@ -19,32 +21,26 @@ void print_time_ms_to_m_s_ms(double time_ms) {
 }
 
 int main(void) {
-    WSADATA wsa;
-    SOCKET sock;
+    int sock;
     struct sockaddr_in server, client;
-    int slen = sizeof(client);
+    socklen_t slen = sizeof(client);
     char buf[BUFLEN];
 
     printf("Starting UDP server on port %d...\n", PORT);
 
-    if (WSAStartup(MAKEWORD(2, 2), &wsa) != 0) {
-        printf("WSAStartup failed: %d\n", WSAGetLastError());
+    if ((sock = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)) == -1) {
+        perror("Socket creation failed");
         return 1;
     }
 
-    if ((sock = socket(AF_INET, SOCK_DGRAM, 0)) == INVALID_SOCKET) {
-        printf("Socket creation failed: %d\n", WSAGetLastError());
-        return 1;
-    }
-
+    memset(&server, 0, sizeof(server));
     server.sin_family = AF_INET;
     server.sin_addr.s_addr = INADDR_ANY;
     server.sin_port = htons(PORT);
 
-    if (bind(sock, (struct sockaddr*)&server, sizeof(server)) == SOCKET_ERROR) {
-        printf("Bind failed: %d\n", WSAGetLastError());
-        closesocket(sock);
-        WSACleanup();
+    if (bind(sock, (struct sockaddr*)&server, sizeof(server)) == -1) {
+        perror("Bind failed");
+        close(sock);
         return 1;
     }
 
@@ -54,8 +50,8 @@ int main(void) {
         memset(buf, 0, BUFLEN);
 
         int recv_len = recvfrom(sock, buf, BUFLEN - 1, 0, (struct sockaddr*)&client, &slen);
-        if (recv_len == SOCKET_ERROR) {
-            printf("recvfrom() failed: %d\n", WSAGetLastError());
+        if (recv_len == -1) {
+            perror("recvfrom() failed");
             continue;
         }
 
@@ -68,8 +64,8 @@ int main(void) {
         }
 
         cJSON* rpm = cJSON_GetObjectItemCaseSensitive(json, "rpm");
+        cJSON* turbo = cJSON_GetObjectItemCaseSensitive(json, "turbo");
         cJSON* SpeedKMH = cJSON_GetObjectItemCaseSensitive(json, "SpeedKMH");
-	cJSON* turbo = cJSON_GetObjectItemCaseSensitive(json, "turbo");
         cJSON* gear = cJSON_GetObjectItemCaseSensitive(json, "gear");
         cJSON* throttle = cJSON_GetObjectItemCaseSensitive(json, "throttle");
         cJSON* brake = cJSON_GetObjectItemCaseSensitive(json, "brake");
@@ -110,7 +106,6 @@ int main(void) {
         cJSON_Delete(json);
     }
 
-    closesocket(sock);
-    WSACleanup();
+    close(sock);
     return 0;
 }
