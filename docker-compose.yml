@@ -20,6 +20,7 @@ services:
     build:
       context: "backend"
       dockerfile: "phpWithMysql.Dockerfile"
+    env_file: .env
     volumes:
       - "$PWD/html:/var/www/html"
     depends_on:
