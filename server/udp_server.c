@@ -61,7 +61,7 @@ int main(void) {
         if (!json) {
             printf("JSON Parse Error!\n");
             continue;
-        }
+        } 
 
         cJSON* rpm = cJSON_GetObjectItemCaseSensitive(json, "rpm");
         cJSON* turbo = cJSON_GetObjectItemCaseSensitive(json, "turbo");
