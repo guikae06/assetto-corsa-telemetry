@@ -12,7 +12,7 @@ $connectToPostgres = function () {
     $dbUser = $_ENV['DB_USER'];
     $dbPassword = $_ENV['DB_PASSWORD'];
 
-    $dsn = "pgsql:host={$dbHost};port={$dbPort};dbname={$dbName}";
+    $dsn = "pgsql:host={$dbHost};port={$dbPort};dbname={$dbName}";//veranderen
     return new PDO($dsn, $dbUser, $dbPassword);
 };
 

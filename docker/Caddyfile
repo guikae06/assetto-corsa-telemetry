@@ -8,7 +8,7 @@
 	root * /var/www/html/public
 	
 	php_fastcgi cgi:9000 {
-		root /var/www/html/public
+	//	root /var/www/html/public
 		try_files {path} /routes.php
 	}
 
