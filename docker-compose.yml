@@ -1,0 +1,52 @@
+version: "3.9"
+
+services:
+  webserver:
+    image: "caddy:2-alpine"
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - "$PWD/html:/var/www/html"
+      - "$PWD/Caddyfile:/etc/caddy/Caddyfile"
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - cgi
+      - db
+
+  cgi:
+    build:
+      context: "backend"
+      dockerfile: "phpWithMysql.Dockerfile"
+    env_file: .env
+    volumes:
+      - "$PWD/html:/var/www/html"
+    depends_on:
+      - db
+
+  db:
+    image: "mysql:8.3"
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_DATABASE: "telemetry"
+      MYSQL_USER: "guikae06"
+      MYSQL_PASSWORD: "ac_project"
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+  adminer:
+    image: adminer
+    ports:
+      - "8888:8080"
+    depends_on:
+      - db
+
+volumes:
+  caddy_data:
+  caddy_config:
+  db_data:
+
