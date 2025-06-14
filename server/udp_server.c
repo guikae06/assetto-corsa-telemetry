@@ -5,7 +5,7 @@
 #include <arpa/inet.h>          // voor inet_ntoa en htons
 #include <netinet/in.h>         // voor sockaddr_in
 #include <sys/socket.h>         // voor socket-functies
-
+#include <curl/curl.h>          // voor cURL functies
 #include "cJSON.h"
 
 #define PORT 9996
@@ -102,6 +102,34 @@ int main(void) {
         }
 
         printf("------------------------------------------------------------\n");
+
+        // cURL initialiseren
+        CURL *curl;
+        CURLcode res;
+
+        curl_global_init(CURL_GLOBAL_DEFAULT);
+        curl = curl_easy_init();
+
+        if (curl) {
+            struct curl_slist *headers = NULL;
+            headers = curl_slist_append(headers, "Content-Type: application/json");
+
+            curl_easy_setopt(curl, CURLOPT_URL, "http://localhost:8000/lib/lib.php"); // pas dit aan
+            curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
+            curl_easy_setopt(curl, CURLOPT_POSTFIELDS, buf);
+            curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, strlen(buf));
+
+            res = curl_easy_perform(curl);
+
+            if (res != CURLE_OK) {
+                fprintf(stderr, "cURL error: %s\n", curl_easy_strerror(res));
+            }
+
+            curl_slist_free_all(headers);
+            curl_easy_cleanup(curl);
+        }
+
+        curl_global_cleanup();
 
         cJSON_Delete(json);
     }
