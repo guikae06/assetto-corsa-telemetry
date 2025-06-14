@@ -1,4 +1,4 @@
-/*Color Palette */
+/*Colors */
 :root {
 	--bg-dark: #0f0f0f;
 	--bg-light: #1a1a1a;
@@ -110,6 +110,8 @@ nav h1 {
 	max-height: 500px;
 	max-width: 800px;
 	margin: 2rem auto;
+	
+	
 }
 
 .img-box img {
