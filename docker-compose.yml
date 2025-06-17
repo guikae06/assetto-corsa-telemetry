@@ -26,18 +26,18 @@ services:
     depends_on:
       - db
 
-db:
-  image: postgres:15-alpine
-  environment:
-    POSTGRES_DB: telemetry
-    POSTGRES_USER: guikae06
-    POSTGRES_PASSWORD: ac_project
-  ports:
-    - "5432:5432"
-  volumes:
-    - db_data:/var/lib/postgresql/data
+  db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: telemetry
+      POSTGRES_USER: guikae06
+      POSTGRES_PASSWORD: ac_project
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
 
-  adminer:
+  adminer:  # ✅ Verplaatst naast db, niet erin
     image: adminer
     ports:
       - "8888:8080"
@@ -48,4 +48,3 @@ volumes:
   caddy_data:
   caddy_config:
   db_data:
-
