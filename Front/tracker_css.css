@@ -51,10 +51,7 @@ body {
     transform: rotate(-90deg);
     transform-origin: center;
     transition: stroke-dasharray 0.5s ease, stroke 0.5s ease;
-    /* verwijder stroke: var(--accent-red); */
 }
-
-
 
 /* Tekst binnen de meter */
 .percentage {
@@ -64,9 +61,47 @@ body {
     dominant-baseline: middle;
 }
 
-
 /* Label onder de meter */
 .label {
     margin-top: 8px;
     font-size: 1em;
+}
+
+/* Stijl voor de Home knop in de tracker-pagina */
+.home-btn {
+    background-color: #e31616;  /* Zelfde rood als de knoppen in Home */
+    color: white;
+    padding: 0.75rem 1.5rem;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    margin-right: 10px; /* Ruimte tussen de knoppen */
+}
+
+.home-btn:hover {
+    background-color: #ff0000;
+    
+}
+/* Actieve knop markeren in de navigatie */
+.nav-rechts a {
+    padding: 10px 20px;  /* Maak de knop dikker */
+    background-color: #444;  /* Standaard donkergrijze achtergrond */
+    border-radius: 5px;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.nav-rechts a:hover {
+    background-color: #e31616;  /* Rood bij hover */
+    transform: scale(1.1);  /* Maak de knop iets groter bij hover */
+}
+
+.nav-rechts a.active {
+    background-color: #e31616;  /* Actieve knop heeft rode achtergrond */
+    color: white;
+    font-weight: bold;
+    transform: scale(1.1);  /* Maak de actieve knop dikker */
 }

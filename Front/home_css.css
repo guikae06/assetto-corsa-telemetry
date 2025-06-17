@@ -2,7 +2,7 @@
 :root {
 	--bg-dark: #0f0f0f;
 	--bg-light: #1a1a1a;
-	--accent-red: #d32f2f;
+	--accent-red: #e31616;
 	--text-light: #e0e0e0;
 	--text-muted: #9e9e9e;
 }
@@ -51,14 +51,27 @@ nav h1 {
 	gap: 1.5rem;
 }
 
+/* Actieve knop markeren in de navigatie */
 .nav-rechts a {
-	color: var(--text-light);
-	text-decoration: none;
-	transition: color 0.3s;
+    padding: 10px 20px;  /* Maak de knop dikker */
+    background-color: #444;  /* Standaard donkergrijze achtergrond */
+    border-radius: 5px;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+    transition: background-color 0.3s, transform 0.2s;
 }
 
 .nav-rechts a:hover {
-	color: var(--accent-red);
+    background-color: #e31616;  /* Rood bij hover */
+    transform: scale(1.1);  /* Maak de knop iets groter bij hover */
+}
+
+.nav-rechts a.active {
+    background-color: #e31616;  /* Actieve knop heeft rode achtergrond */
+    color: white;
+    font-weight: bold;
+    transform: scale(1.1);  /* Maak de actieve knop dikker */
 }
 
 
