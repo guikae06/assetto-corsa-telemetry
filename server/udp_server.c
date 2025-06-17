@@ -131,7 +131,7 @@ int main(void) {
 
         curl_global_cleanup();
 
-        cJSON_Delete(json);
+        
     }
 
     close(sock);
