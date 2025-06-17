@@ -1,3 +1,4 @@
+/* Tracker dashboard layout */
 body {
     background-color: #111;
     color: #fff;
@@ -5,15 +6,18 @@ body {
     margin: 0;
     padding: 0;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
+/* Zorg dat dashboard mooi onder de navigatiebalk verschijnt */
 .dashboard {
     text-align: center;
+    padding: 2rem;
+    flex-grow: 1;
 }
 
+/* Indeling van meters */
 .gauges {
     display: flex;
     gap: 40px;
@@ -32,12 +36,14 @@ body {
     max-height: 120px;
 }
 
+/* Achtergrondcirkel */
 .circle-bg {
     fill: none;
     stroke: #444;
     stroke-width: 3.8;
 }
 
+/* Dynamische cirkel (vult percentage in) */
 .circle {
     fill: none;
     stroke-width: 2.8;
@@ -45,14 +51,21 @@ body {
     transform: rotate(-90deg);
     transform-origin: center;
     transition: stroke-dasharray 0.5s ease, stroke 0.5s ease;
+    /* verwijder stroke: var(--accent-red); */
 }
 
+
+
+/* Tekst binnen de meter */
 .percentage {
-    fill: #fff;
-    font-size: 0.2em;
+    fill: white;
+    font-size: 0.35em;
     text-anchor: middle;
+    dominant-baseline: middle;
 }
 
+
+/* Label onder de meter */
 .label {
     margin-top: 8px;
     font-size: 1em;

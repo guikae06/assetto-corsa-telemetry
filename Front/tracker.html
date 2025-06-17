@@ -4,13 +4,29 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Auto Dashboard</title>
+    <link rel="stylesheet" href="home_css.css" />
     <link rel="stylesheet" href="tracker_css.css" />
 </head>
 <body>
+
+    <!-- Navigatiebalk -->
+    <header>
+        <nav>
+            <h1>Assetto Stats Tracker</h1>
+            <ul class="nav-rechts">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="tracker.html">Tracker</a></li>
+                <li><a href="#">About us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Dashboard -->
     <div class="dashboard">
         <h1>Auto Dashboard</h1>
 
         <div class="gauges">
+            <!-- Snelheid -->
             <div class="gauge" id="speedGauge">
                 <svg viewBox="0 0 36 36" class="circular-chart">
                     <path class="circle-bg"
@@ -25,6 +41,7 @@
                 <div class="label">Snelheid</div>
             </div>
 
+            <!-- Brandstof -->
             <div class="gauge" id="fuelGauge">
                 <svg viewBox="0 0 36 36" class="circular-chart">
                     <path class="circle-bg"
@@ -39,6 +56,7 @@
                 <div class="label">Brandstof</div>
             </div>
 
+            <!-- Toerental -->
             <div class="gauge" id="rpmGauge">
                 <svg viewBox="0 0 36 36" class="circular-chart">
                     <path class="circle-bg"

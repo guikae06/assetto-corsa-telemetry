@@ -19,6 +19,7 @@ function updateGauge(id, value, maxValue, unit) {
     } else {
         color = 'red';
     }
+
     circle.setAttribute('stroke', color);
 }
 
@@ -29,13 +30,14 @@ let rpm = 0;
 
 function simulate() {
     // Dummy simulatie met willekeurige fluctuatie
-    speed = Math.random() * 200;
-    fuel = Math.max(0, fuel - Math.random() * 2);
-    rpm = Math.random() * 7000;
+    speed = Math.random() * 200;       // max 200 km/u
+    fuel = Math.max(0, fuel - Math.random() * 2);  // brandstof daalt geleidelijk
+    rpm = Math.random() * 7000;        // max 7000 RPM
 
     updateGauge('speedGauge', speed, 200, 'km/u');
     updateGauge('fuelGauge', fuel, 100, '%');
     updateGauge('rpmGauge', rpm, 7000, 'RPM');
 }
 
-setInterval(simulate, 1000); // Elke seconde updaten
+// Simuleer elke seconde
+setInterval(simulate, 1000);
