@@ -1,6 +1,5 @@
-!te veranderen!
 
-:80 {
+:80, :443 {
 	log {
 		format console
 	}

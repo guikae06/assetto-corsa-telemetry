@@ -1,3 +1,4 @@
+
 function createChart(ctx) {
   const chart = new Chart(ctx, {
     type: 'line',
@@ -65,3 +66,4 @@ function main() {
 $(document).ready(() => {
   main();
 });
+
