@@ -1,43 +1,52 @@
-function updateGauge(id, value, maxValue, unit) {
-    const gauge = document.getElementById(id);
-    const circle = gauge.querySelector('.circle');
-    const text = gauge.querySelector('.percentage');
+async function fetchTelemetry() {
+  try {
+    const response = await fetch('telemetry/latest.php');
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
-    // Bereken percentage
-    const percent = Math.min(100, Math.max(0, (value / maxValue) * 100));
-    circle.setAttribute('stroke-dasharray', `${percent}, 100`);
+    const data = await response.json();
 
-    // Tekst bijwerken
-    text.textContent = `${Math.round(value)} ${unit}`;
+    const rpm = data.rpm || 0;
+    const speed = data.speed_kmh || 0;
+    const turbo = data.turbo || 0;
 
-    // Kleur bepalen op basis van percentage
-    let color;
-    if (percent < 40) {
-        color = 'limegreen';
-    } else if (percent < 75) {
-        color = 'orange';
-    } else {
-        color = 'red';
-    }
+    document.getElementById('rpm_val').textContent = rpm;
+    document.getElementById('speed_val').textContent = speed + ' km/u';
+    document.getElementById('turbo_val').textContent = turbo.toFixed(1);
 
-    circle.setAttribute('stroke', color);
+    document.getElementById('gear_val').textContent = data.gear ?? '-';
+    document.getElementById('throttle_val').textContent = Math.round((data.throttle || 0) * 100) + '%';
+    document.getElementById('brake_val').textContent = Math.round((data.brake || 0) * 100) + '%';
+
+    document.getElementById('lapTime').textContent = (data.lap_time_ms ?? 0) + ' ms';
+    document.getElementById('lastLap').textContent = (data.last_lap_ms ?? 0) + ' ms';
+    document.getElementById('bestLap').textContent = (data.best_lap_ms ?? 0) + ' ms';
+    document.getElementById('lapCount').textContent = data.lap_count ?? 0;
+    document.getElementById('trackName').textContent = data.track_name ?? '-';
+    document.getElementById('datetime').textContent = data.datetime ?? '-';
+
+    updateGauge('rpm', rpm, 15000);
+    updateGauge('speed', speed, 400);
+    updateGauge('turbo', turbo, 2);
+    updateGauge('gear', data.gear ? Number(data.gear) : 0, 7);
+    updateGauge('throttle', data.throttle || 0, 1);
+    updateGauge('brake', data.brake || 0, 1);
+  } catch (err) {
+    console.error('Error fetching telemetry:', err);
+  }
 }
 
-// Voorbeeldwaarden (kun je ook vervangen met live data of sliders)
-let speed = 0;
-let fuel = 100;
-let rpm = 0;
+function updateGauge(id, value, max) {
+  const circle = document.getElementById(id);
+  if (!circle) return;
 
-function simulate() {
-    // Dummy simulatie met willekeurige fluctuatie
-    speed = Math.random() * 200;       // max 200 km/u
-    fuel = Math.max(0, fuel - Math.random() * 2);  // brandstof daalt geleidelijk
-    rpm = Math.random() * 7000;        // max 7000 RPM
+  const radius = 15.9155;
+  const circumference = 2 * Math.PI * radius;
+  const percent = Math.min(value / max, 1);
+  const offset = circumference * (1 - percent);
 
-    updateGauge('speedGauge', speed, 200, 'km/u');
-    updateGauge('fuelGauge', fuel, 100, '%');
-    updateGauge('rpmGauge', rpm, 7000, 'RPM');
+  circle.style.strokeDasharray = circumference;
+  circle.style.strokeDashoffset = offset;
 }
 
-// Simuleer elke seconde
-setInterval(simulate, 1000);
+setInterval(fetchTelemetry, 2500);
+fetchTelemetry();

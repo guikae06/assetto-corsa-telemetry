@@ -1,107 +1,126 @@
-/* Tracker dashboard layout */
+:root {
+  --bg-dark: #0f0f0f;
+  --bg-light: #1a1a1a;
+  --accent-red: #e31616;
+  --text-light: #e0e0e0;
+  --text-muted: #9e9e9e;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-    background-color: #111;
-    color: #fff;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+  background-color: var(--bg-dark);
+  color: var(--text-light);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Zorg dat dashboard mooi onder de navigatiebalk verschijnt */
-.dashboard {
-    text-align: center;
-    padding: 2rem;
-    flex-grow: 1;
+header {
+  background-color: var(--bg-light);
+  padding: 10px 35px;
+  border-bottom: 3px solid var(--accent-red);
 }
 
-/* Indeling van meters */
-.gauges {
-    display: flex;
-    gap: 40px;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-top: 20px;
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.gauge {
-    width: 120px;
+nav h1 {
+  color: var(--accent-red);
+  font-weight: bold;
+  letter-spacing: 1px;
 }
 
-.circular-chart {
-    display: block;
-    max-width: 100%;
-    max-height: 120px;
+.nav-rechts {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
 }
 
-/* Achtergrondcirkel */
-.circle-bg {
-    fill: none;
-    stroke: #444;
-    stroke-width: 3.8;
-}
-
-/* Dynamische cirkel (vult percentage in) */
-.circle {
-    fill: none;
-    stroke-width: 2.8;
-    stroke-linecap: round;
-    transform: rotate(-90deg);
-    transform-origin: center;
-    transition: stroke-dasharray 0.5s ease, stroke 0.5s ease;
-}
-
-/* Tekst binnen de meter */
-.percentage {
-    fill: white;
-    font-size: 0.35em;
-    text-anchor: middle;
-    dominant-baseline: middle;
-}
-
-/* Label onder de meter */
-.label {
-    margin-top: 8px;
-    font-size: 1em;
-}
-
-/* Stijl voor de Home knop in de tracker-pagina */
-.home-btn {
-    background-color: #e31616;  /* Zelfde rood als de knoppen in Home */
-    color: white;
-    padding: 0.75rem 1.5rem;
-    text-decoration: none;
-    border-radius: 5px;
-    font-weight: bold;
-    transition: background-color 0.3s;
-    margin-right: 10px; /* Ruimte tussen de knoppen */
-}
-
-.home-btn:hover {
-    background-color: #ff0000;
-    
-}
-/* Actieve knop markeren in de navigatie */
 .nav-rechts a {
-    padding: 10px 20px;  /* Maak de knop dikker */
-    background-color: #444;  /* Standaard donkergrijze achtergrond */
-    border-radius: 5px;
-    font-weight: bold;
-    color: white;
-    text-decoration: none;
-    transition: background-color 0.3s, transform 0.2s;
+  padding: 10px 20px;
+  background-color: #444;
+  border-radius: 5px;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+  transition: background-color 0.3s, transform 0.2s;
 }
 
 .nav-rechts a:hover {
-    background-color: #e31616;  /* Rood bij hover */
-    transform: scale(1.1);  /* Maak de knop iets groter bij hover */
+  background-color: var(--accent-red);
+  transform: scale(1.1);
 }
 
 .nav-rechts a.active {
-    background-color: #e31616;  /* Actieve knop heeft rode achtergrond */
-    color: white;
-    font-weight: bold;
-    transform: scale(1.1);  /* Maak de actieve knop dikker */
+  background-color: var(--accent-red);
+  transform: scale(1.1);
+}
+
+/* Dashboard */
+.dashboard {
+  text-align: center;
+  padding: 2rem;
+  flex-grow: 1;
+}
+
+.gauges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 20px;
+}
+
+.gauge {
+  width: 120px;
+}
+
+.circular-chart {
+  max-width: 100%;
+  max-height: 120px;
+}
+
+.circle-bg {
+  fill: none;
+  stroke: #444;
+  stroke-width: 3.8;
+}
+
+.circle {
+  fill: none;
+  stroke-width: 2.8;
+  stroke-linecap: round;
+  transform: rotate(-90deg);
+  transform-origin: center;
+  transition: stroke-dasharray 0.5s ease, stroke 0.5s ease;
+}
+
+.percentage {
+  fill: white;
+  font-size: 0.35em;
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
+
+.label {
+  margin-top: 8px;
+  font-size: 1em;
+}
+
+.lap-info {
+  margin-top: 2rem;
+  display: grid;
+  gap: 0.75rem;
+  color: var(--text-muted);
+  font-size: 1rem;
 }

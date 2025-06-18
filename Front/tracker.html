@@ -1,81 +1,111 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Auto Dashboard</title>
-    <link rel="stylesheet" href="home_css.css" />
-    <link rel="stylesheet" href="tracker_css.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Assetto Stats Tracker</title>
+  <link rel="stylesheet" href="tracker_css.css" />
 </head>
 <body>
+  <header>
+    <nav>
+      <h1>Assetto Stats Tracker</h1>
+      <ul class="nav-rechts">
+        <li><a href="home.html" class="home-btn">Home</a></li>
+        <li><a href="tracker.html" class="tracker-btn active">Tracker</a></li>
+        <li><a href="#">About us</a></li>
+      </ul>
+    </nav>
+  </header>
 
-    <!-- Navigatiebalk -->
-    <header>
-        <nav>
-            <h1>Assetto Stats Tracker</h1>
-            <ul class="nav-rechts">
-                <!-- Home knop zonder actieve klasse -->
-                <li><a href="home.html" class="home-btn">Home</a></li>
-                <!-- Voeg de 'active' klasse toe aan de Tracker-knop voor de trackerpagina -->
-                <li><a href="tracker.html" class="tracker-btn active">Tracker</a></li>
-                <li><a href="#">About us</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <!-- Dashboard -->
+  <section class="speed">
+    <h2>Auto Dashboard</h2>
     <div class="dashboard">
-        <h1>Auto Dashboard</h1>
-
-        <div class="gauges">
-            <!-- Snelheid -->
-            <div class="gauge" id="speedGauge">
-                <svg viewBox="0 0 36 36" class="circular-chart">
-                    <path class="circle-bg"
-                          d="M18 2.0845
-                             a 15.9155 15.9155 0 0 1 0 31.831
-                             a 15.9155 15.9155 0 0 1 0 -31.831"/>
-                    <path class="circle" d="M18 2.0845
-                             a 15.9155 15.9155 0 0 1 0 31.831
-                             a 15.9155 15.9155 0 0 1 0 -31.831"/>
-                    <text x="18" y="20.35" class="percentage">0 km/u</text>
-                </svg>
-                <div class="label">Snelheid</div>
-            </div>
-
-            <!-- Brandstof -->
-            <div class="gauge" id="fuelGauge">
-                <svg viewBox="0 0 36 36" class="circular-chart">
-                    <path class="circle-bg"
-                          d="M18 2.0845
-                             a 15.9155 15.9155 0 0 1 0 31.831
-                             a 15.9155 15.9155 0 0 1 0 -31.831"/>
-                    <path class="circle" d="M18 2.0845
-                             a 15.9155 15.9155 0 0 1 0 31.831
-                             a 15.9155 15.9155 0 0 1 0 -31.831"/>
-                    <text x="18" y="20.35" class="percentage">0%</text>
-                </svg>
-                <div class="label">Brandstof</div>
-            </div>
-
-            <!-- Toerental -->
-            <div class="gauge" id="rpmGauge">
-                <svg viewBox="0 0 36 36" class="circular-chart">
-                    <path class="circle-bg"
-                          d="M18 2.0845
-                             a 15.9155 15.9155 0 0 1 0 31.831
-                             a 15.9155 15.9155 0 0 1 0 -31.831
-                             a 15.9155 15.9155 0 0 1 0 -31.831"/>
-                    <path class="circle" d="M18 2.0845
-                             a 15.9155 15.9155 0 0 1 0 31.831
-                             a 15.9155 15.9155 0 0 1 0 -31.831"/>
-                    <text x="18" y="20.35" class="percentage">0 RPM</text>
-                </svg>
-                <div class="label">Toerental</div>
-            </div>
+      <div class="gauges">
+        <!-- Speed -->
+        <div class="gauge" id="speedGauge">
+          <svg viewBox="0 0 36 36" class="circular-chart">
+            <path class="circle-bg"
+              d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+            <path id="speed" class="circle"
+              d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+            <text id="speed_val" x="18" y="20.35" class="percentage">0 km/u</text>
+          </svg>
+          <div class="label">Snelheid</div>
         </div>
-    </div>
 
-    <script src="tracker_js.js"></script>
+        <!-- RPM -->
+        <div class="gauge" id="rpmGauge">
+          <svg viewBox="0 0 36 36" class="circular-chart">
+            <path class="circle-bg"
+              d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+            <path id="rpm" class="circle"
+              d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+            <text id="rpm_val" x="18" y="20.35" class="percentage">0 RPM</text>
+          </svg>
+          <div class="label">Toerental</div>
+        </div>
+
+        <!-- Turbo -->
+        <div class="gauge" id="turboGauge">
+          <svg viewBox="0 0 36 36" class="circular-chart">
+            <path class="circle-bg"
+              d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+            <path id="turbo" class="circle"
+              d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+            <text id="turbo_val" x="18" y="20.35" class="percentage">0.0</text>
+          </svg>
+          <div class="label">Turbo</div>
+        </div>
+
+        <!-- Gear -->
+        <div class="gauge" id="gearGauge">
+          <svg viewBox="0 0 36 36" class="circular-chart">
+            <path class="circle-bg"
+              d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+            <path id="gear" class="circle"
+              d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+            <text id="gear_val" x="18" y="20.35" class="percentage">0</text>
+          </svg>
+          <div class="label">Versnelling</div>
+        </div>
+
+        <!-- Throttle -->
+        <div class="gauge" id="throttleGauge">
+          <svg viewBox="0 0 36 36" class="circular-chart">
+            <path class="circle-bg"
+              d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+            <path id="throttle" class="circle"
+              d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+            <text id="throttle_val" x="18" y="20.35" class="percentage">0%</text>
+          </svg>
+          <div class="label">Gas</div>
+        </div>
+
+        <!-- Brake -->
+        <div class="gauge" id="brakeGauge">
+          <svg viewBox="0 0 36 36" class="circular-chart">
+            <path class="circle-bg"
+              d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+            <path id="brake" class="circle"
+              d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+            <text id="brake_val" x="18" y="20.35" class="percentage">0%</text>
+          </svg>
+          <div class="label">Rem</div>
+        </div>
+      </div>
+
+      <div class="lap-info">
+        <div>Lap Tijd: <span id="lapTime">0 ms</span></div>
+        <div>Laatste Lap: <span id="lastLap">0 ms</span></div>
+        <div>Aantal Laps: <span id="lapCount">0</span></div>
+        <div>Beste Lap: <span id="bestLap">0 ms</span></div>
+        <div>Track: <span id="trackName">-</span></div>
+        <div>Tijdstip: <span id="datetime">-</span></div>
+      </div>
+    </div>
+  </section>
+
+  <script src="tracker_js.js"></script>
 </body>
 </html>
