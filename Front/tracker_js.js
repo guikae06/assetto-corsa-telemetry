@@ -64,5 +64,5 @@ function updateGauge(id, value, max) {
   circle.style.stroke = color;
 }
 
-setInterval(fetchTelemetry, 2500);
+setInterval(fetchTelemetry, 500);
 fetchTelemetry();
