@@ -1,19 +1,18 @@
+:80 {
+    log {
+        format console
+    }
 
-:80, :443 {
-	log {
-		format console
-	}
+    root * /var/www/html
 
-	root * /var/www/html/public
-	
-	php_fastcgi cgi:9000 {
-		root /var/www/html/public
-		try_files {path} /lib.php
-	}
+    php_fastcgi web:9000 {
+        root /var/www/html
+        try_files {path} /lib.php
+    }
 
-	file_server
-	
-	handle_errors {
-		respond "{err.status_code} {err.status_text}"
-	}
+    file_server
+
+    handle_errors {
+        respond "{err.status_code} {err.status_text}"
+    }
 }

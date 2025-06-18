@@ -1,4 +1,4 @@
-\connect webtech
+
 
 CREATE TABLE IF NOT EXISTS telemetry (
   id SERIAL PRIMARY KEY,
