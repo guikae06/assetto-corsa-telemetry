@@ -1,4 +1,4 @@
-version: "3.9"
+
 
 services:
   webserver:
@@ -9,7 +9,7 @@ services:
       - "443:443/udp"
     volumes:
       - "$PWD/html:/var/www/html"
-      - "$PWD/Caddyfile:/etc/caddy/Caddyfile"
+      - "$PWD/docker/Caddyfile:/etc/caddy/Caddyfile"
       - caddy_data:/data
       - caddy_config:/config
     depends_on:
@@ -18,7 +18,7 @@ services:
 
   cgi:
     build:
-      context: "backend"
+      context: "docker"
       dockerfile: "php-with-pgsql.Dockerfile"
     env_file: .env
     volumes:
