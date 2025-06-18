@@ -1,6 +1,6 @@
 async function fetchTelemetry() {
   try {
-    const response = await fetch('telemetry/latest.php');
+    const response = await fetch('data_dummy.php');
     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
     const data = await response.json();
@@ -46,6 +46,22 @@ function updateGauge(id, value, max) {
 
   circle.style.strokeDasharray = circumference;
   circle.style.strokeDashoffset = offset;
+
+  // Dynamische kleur op basis van percentage
+  let color;
+  if (percent < 0.5) {
+    // Groen naar oranje
+    const red = Math.floor(510 * percent);     // tot max 255 bij 50%
+    const green = 255;
+    color = `rgb(${red},${green},0)`;
+  } else {
+    // Oranje naar rood
+    const red = 255;
+    const green = Math.floor(510 * (1 - percent)); // tot min 0 bij 100%
+    color = `rgb(${red},${green},0)`;
+  }
+
+  circle.style.stroke = color;
 }
 
 setInterval(fetchTelemetry, 2500);
